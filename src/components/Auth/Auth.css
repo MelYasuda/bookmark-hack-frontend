@@ -1,0 +1,33 @@
+.Auth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 91.8vh;
+}
+
+.form-border {
+  border: 1px;
+  padding: 10px;
+  background-color: blanchedalmond;
+  border-radius: 1%
+}
+
+.image-upload > input
+{
+    display: none;
+}
+
+#clickable-img {
+  margin-left: 50%;
+  width: 200px;
+  border-radius: 20px
+}
+
+.facebook-login {
+  width: 50px
+}
+
+#signin-btn-group, #fb-btn-group {
+  text-align: center
+}

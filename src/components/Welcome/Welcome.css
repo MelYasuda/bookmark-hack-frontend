@@ -1,0 +1,24 @@
+ul {
+  list-style-type: none;
+}
+
+.Welcome {
+  text-align: center
+}
+
+.tags {
+  margin: 40px 300px;
+  background-color: #daf7f8;
+  border-radius: 8px;
+  height: 250px
+}
+
+.tag {
+  font-weight: 1000;
+  background-color: #98bdf0;
+  margin-right: 60px;
+  margin-top: 10px;
+  border-radius: 10px;
+  color: white;
+  margin-left: 20px;
+}
