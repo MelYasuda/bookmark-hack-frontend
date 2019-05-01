@@ -20,7 +20,7 @@ export default class Signup extends Component {
           return response.json();
         }).then((response)=> {
         window.sessionStorage.setItem("jwtToken", response.token)}).then(()=> {
-          this.props.history.push("/home")
+          this.props.history.push("/welcome")
         })
         .then(() => this.props.loginCheckAuthenticated())
         .catch((err)=> console.log(err))

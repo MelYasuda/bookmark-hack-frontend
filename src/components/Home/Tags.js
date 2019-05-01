@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Tag from './Tag';
+import './Home.css';
 
 export default class Tags extends Component {
   constructor(props) {
@@ -36,9 +37,9 @@ export default class Tags extends Component {
   render(){
     if(this.state.isLoading) return null;
     return(
-      <div>
+      <div className='tag-list col-3'>
         {this.state.tags.map((tag, key) => (
-          <Tag 
+          <Tag
             name={tag.name}
             key={tag.key}
           />

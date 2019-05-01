@@ -2,15 +2,16 @@ ul {
   list-style-type: none;
 }
 
-.Welcome {
-  text-align: center
+.tag-box {
+  display: inline-block;
+  text-align: center;
 }
 
 .tags {
-  margin: 40px 300px;
+  margin: 0px 300px 20px 300px;
   background-color: #daf7f8;
   border-radius: 8px;
-  height: 250px
+  height: 250px;
 }
 
 .tag {
@@ -21,4 +22,10 @@ ul {
   border-radius: 10px;
   color: white;
   margin-left: 20px;
+}
+
+button {
+  float: right;
+  margin-top: 225px;
+  margin-right: 100px;
 }

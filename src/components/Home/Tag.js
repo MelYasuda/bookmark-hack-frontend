@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Tag = function(props) {
-  return <p>{props.name}</p>
+  return <span className='name'> {props.name}</span>
 }
 
 export default Tag;

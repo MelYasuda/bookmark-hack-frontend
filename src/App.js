@@ -5,7 +5,7 @@ import { Splash } from './components/Splash/Splash';
 import NavBar from './components/NavBar/NavBar';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
-import Tags from './components/Home/Tags';
+import Home from './components/Home/Home';
 import Welcome from './components/Welcome/Welcome';
 
 class App extends Component {
@@ -61,7 +61,7 @@ class App extends Component {
           <Route 
           path="/home"
           render={props => (
-              <Tags history={this.props.history} />
+              <Home history={this.props.history} />
             )}
           />
           <Route 
