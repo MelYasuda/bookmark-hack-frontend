@@ -40,7 +40,7 @@ export default class Welcome extends Component {
 
   createTags = (tags) => {
     console.log(tags)
-    fetch('/api/home', {
+    fetch('/api/tags/homeTags', {
       method: 'post',
       headers: {
         'Accept': 'application/json, text/plain, */*',
@@ -48,6 +48,12 @@ export default class Welcome extends Component {
         'Authorization': 'Bearer' + ' ' + window.sessionStorage.jwtToken
       },
       body: JSON.stringify({tags: tags})
+    }).then(res=>{
+      if(res.ok) {
+        return res;
+      } else {
+        throw Error(`Request rejected with status ${res.status}`);
+      }
     }).then(()=>this.props.history.push('/home'))
   }
 
@@ -56,11 +62,13 @@ export default class Welcome extends Component {
         <div className='tag-box'>
           <h3>Welcome to Bookmark Hack!</h3>
           <p>Before you begin, please select what you're studying to create tags for you</p>
-          <button className='btn btn-success' onClick={()=>this.createTags(this.state.selectedTags)}>Create Tags and <br/> <em>Start!</em></button>
+          <button className='btn btn-success start' onClick={()=>this.createTags(this.state.selectedTags)}>Create Tags and <br/> <em>Start!</em></button>
             <div className='tags'>
               <ul className='row'>
                 {this.state.tagList.map((tag, index) => (
-                  <li className='col-md-3'><div className='tag' onClick={() => this.addTags(tag, index)}>{tag}</div></li>
+                  <li 
+                  key={index}
+                  className='col-md-3'><div className='tag' onClick={() => this.addTags(tag, index)}>{tag}</div></li>
                 ))}
               </ul>
             </div>
@@ -68,7 +76,9 @@ export default class Welcome extends Component {
             <div className='tags'>
               <ul className='row'>
                 {this.state.selectedTags.map((tag, index) => (
-                  <li className='col-md-3' onClick={() => this.removeTags(tag, index)}><div className='tag'><IoIosCloseCircleOutline />{tag}</div></li>
+                  <li 
+                  key={index}                  
+                  className='col-md-3' onClick={() => this.removeTags(tag, index)}><div className='tag'><IoIosCloseCircleOutline />{tag}</div></li>
                 ))}
               </ul>
             </div>

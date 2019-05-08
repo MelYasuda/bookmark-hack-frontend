@@ -18,7 +18,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('didmounth')
     this.renderCheckAuthenticated().then(res => {
       this.setState((prevState, props)=>{
         return { isAuthenticated: res}

@@ -13,7 +13,7 @@ class NavBar extends Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
-                <a id="brand" className="nav-link" href="">
+                <a id="brand" className="nav-link nav-icon" href="">
                   {/* <FontAwesomeIcon icon="home" /> */}
                   Home
                 </a>
@@ -22,9 +22,6 @@ class NavBar extends Component {
           </div>
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            {/* <CondNavDisplay
-            history={this.props.history}
-            isSignedIn={this.props.isSignedIn} handleSignOut={this.handleSignOut}/> */}
             <CondNavDisplay
             isSignedIn={this.props.isSignedIn}/>
           </div>

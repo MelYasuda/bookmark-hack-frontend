@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
-import Unfinished from './Unfinished';
-import Important from './Important';
+import React from 'react';
+import BookmarkBox from './BookmarkBox';
 
 export default function BookmarkSide() {
-  return <div className='col-7'><Important /><Unfinished /></div>
+  return <div className='col-8'><BookmarkBox label={"important"} /><BookmarkBox label={"unfinished"}/></div>
 }

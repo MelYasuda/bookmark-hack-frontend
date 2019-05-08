@@ -1,8 +1,11 @@
 .NavBar {
   background-color: #2c4d6c;
-  color: white
 }
 
 a.nav-link {
   color: white
+}
+
+.nav-new {
+  color: white;
 }

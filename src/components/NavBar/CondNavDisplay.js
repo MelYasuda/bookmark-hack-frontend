@@ -1,6 +1,7 @@
 import React from 'react';
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types'; 
+import ModalForm from '../CreateBookmark/ModalForm';
 
 function SignedIn(props){
 
@@ -27,22 +28,20 @@ function SignedIn(props){
 
   return(
   <ul className="navbar-nav ml-auto">
-    <li className="nav-item active">
-      <a className="nav-link" href="#/listings/create">
-        Add
-      </a>
+    <li style={{marginTop: 8+'px'}} className="nav-item active">
+      <ModalForm />
     </li>
-    <li className="nav-item active">
+    <li className="nav-item active nav-icon">
       <a className="nav-link" href="#/saved">
         Notification
       </a>
     </li>
-    <li className="nav-item active">
+    <li className="nav-item active nav-icon">
       <a className="nav-link" href="#/user">
         User
       </a>
     </li>
-    <li className="nav-item active">
+    <li className="nav-item active nav-icon">
       <a className="nav-link" onClick={handleSignOut} href="">
         Sign Out
       </a>

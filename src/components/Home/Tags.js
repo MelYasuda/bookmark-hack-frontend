@@ -20,7 +20,7 @@ export default class Tags extends Component {
   }
 
   callBackendAPI = async () => {
-    const response = await fetch('/api/home', {
+    const response = await fetch('/api/tags', {
       method: 'get',
       headers: {
         'Authorization': 'Bearer' + ' ' + window.sessionStorage.jwtToken
@@ -40,8 +40,8 @@ export default class Tags extends Component {
       <div className='tag-list col-3'>
         {this.state.tags.map((tag, key) => (
           <Tag
-            name={tag.name}
-            key={tag.key}
+            tag={tag}
+            key={key}
           />
         ))}</div>
     )

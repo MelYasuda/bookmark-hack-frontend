@@ -24,7 +24,7 @@ ul {
   margin-left: 20px;
 }
 
-button {
+button.start {
   float: right;
   margin-top: 225px;
   margin-right: 100px;
