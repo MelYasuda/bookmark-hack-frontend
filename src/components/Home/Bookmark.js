@@ -2,7 +2,8 @@ import React from 'react';
 import { IoIosStar } from "react-icons/io";
 import { IoIosContrast } from "react-icons/io";
 import { IoIosTimer } from "react-icons/io";
-import DefaultImage from "../../assets/img/programming.png"
+import DefaultImage from "../../assets/img/programming.png";
+import DetailsModal from "./DetailsModal";
 
 export default function Bookmark(props){
   const bookmark = props.bookmark;
@@ -14,7 +15,7 @@ export default function Bookmark(props){
         {(()=>{if(bookmark.unfinished) return <span><IoIosContrast size={25} style={{color: '#c0d6e4'}}/><br /></span>})()}
         {(()=>{if(bookmark.remind) return <IoIosTimer size={25} style={{color: '#88a6f6'}}/>})()}
       </span>
-      <div className='text-wrapper col-9'>
+      <div className='text-wrapper col-8'>
         {bookmark.title}
         <div className='bookmark-tags'>
           {bookmark.tags.map((tag, key)=>(
@@ -26,13 +27,15 @@ export default function Bookmark(props){
           {bookmark.note}
         </p>
       </div>
+      <div className='col-1'><DetailsModal details={bookmark}/></div>
       <div className='col-2' style={{
         backgroundImage: 'url(' + image + ')',
         backgroundSize:'contain',
         backgroundPosition:'center',
         backgroundRepeat:'no-repeat',
         height: 90 + 'px',
-        marginLeft:30 + 'px'
+        marginLeft:20 + 'px',
+        marginTop:5+'px'
         }} alt={bookmark.title}/>
     </div>
   )

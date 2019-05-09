@@ -40,11 +40,12 @@ export default class Bookmarks extends Component {
 
   render() {
     if(this.state.isLoading) return null;
+    const bookmarks = (this.props.label==='important')?this.state.bookmarks.selectedImportant:this.state.bookmarks.selectedUnfinished;
     return (
       <div>
         <h4 style={{marginLeft: 15+'px', marginTop: 5+'px'}}>Marked as {(this.props.label==='important')? 'Important': 'Unfinished'}</h4>
         {
-          this.state.bookmarks.map((bookmark, key)=>(
+          bookmarks.map((bookmark, key)=>(
             <Bookmark bookmark={bookmark} key={key}/>
           ))
         }
