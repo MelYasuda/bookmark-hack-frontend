@@ -3,6 +3,7 @@ import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import TextForm from '../TextForm';
 import FormikEffect from './FormikEffect';
+import Alert from 'react-s-alert';
 
 const Checkbox = ({
   field: { name, value, onChange },
@@ -66,11 +67,27 @@ export default class CreateForm extends Component {
       body: JSON.stringify(values)
     }).then(res=>{
       if(res.ok) {
+
+        Alert.success('Bookmark created!', {
+          position: 'top',
+          effect: 'stackslide',
+          timeout: 5000,
+          offset:60
+      });
+
         resetForm();
         this.setState({title:null})
         this.handleCloseButton();
         return res;
       } else {
+        Alert.error('Bookmark creation failed',{
+          position:'bottom-left',
+          timeout: 9000
+        });
+        // resetForm for now but should be kept
+        resetForm();
+        this.setState({title:null})
+        this.handleCloseButton();
         throw Error(`Request rejected with status ${res.status}`);
       }
     }).catch(console.error)

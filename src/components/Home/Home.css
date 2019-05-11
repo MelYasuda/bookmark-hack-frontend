@@ -32,6 +32,10 @@
   height: 93vh
 }
 
+.home-content {
+  width: 100%
+}
+
 .details {
   margin-top: 30px
 }

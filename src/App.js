@@ -8,6 +8,9 @@ import Signup from './components/Auth/Signup';
 import Home from './components/Home/Home';
 import Welcome from './components/Welcome/Welcome';
 import AllBookmarks from './components/Bookmarks/AllBookmarks';
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
+import 'react-s-alert/dist/s-alert-default.css';
 
 class App extends Component {
   constructor(props) {
@@ -78,6 +81,7 @@ class App extends Component {
             )}
           />
           </Switch>
+          <Alert stack={{limit: 3}} />
       </div>
     );
   }
