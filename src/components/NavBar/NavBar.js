@@ -23,6 +23,7 @@ class NavBar extends Component {
 
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <CondNavDisplay
+            history={this.props.history}
             isSignedIn={this.props.isSignedIn}/>
           </div>
 

@@ -33,7 +33,10 @@ export default class ModalForm extends Component {
           <h5 className="modal-title">Create new bookmark</h5>
         </div>
         <div className="modal-body">
-          <CreateForm onCloseButton={this.onCloseButton}/>
+          <CreateForm 
+          history={this.props.history}
+          onCloseButton={this.onCloseButton}
+          onCloseButton={this.onCloseButton}/>
         </div>
       </Modal>
       </div>

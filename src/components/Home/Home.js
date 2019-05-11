@@ -8,7 +8,7 @@ export default class Home extends Component {
     <div className='Home'>
       <div className='row'>
         <Tags />
-        <BookmarkSide />
+        <BookmarkSide label={'home'}/>
       </div>
     </div>
     )

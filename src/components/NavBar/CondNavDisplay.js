@@ -22,14 +22,14 @@ function SignedIn(props){
       .then(() => {
         window.sessionStorage.setItem("jwtToken", "")
       })
-      .then(()=> this.props.history.push("/"))
+      .then(()=> props.history.push("/"))
       .catch((err)=> console.log(err))
   }
 
   return(
   <ul className="navbar-nav ml-auto">
     <li style={{marginTop: 8+'px'}} className="nav-item active">
-      <ModalForm />
+      <ModalForm history={props.history}/>
     </li>
     <li className="nav-item active nav-icon">
       <a className="nav-link" href="#/saved">

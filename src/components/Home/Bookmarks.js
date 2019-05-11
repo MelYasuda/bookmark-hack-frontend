@@ -23,7 +23,12 @@ export default class Bookmarks extends Component {
   }
 
   getBookmarksAPI = async () => {
-    const response = await fetch('/api/bookmarks', {
+    const label = this.props.label
+    let path = null;
+    if(label==='important'||label==='unfinished') {path='homeBookmarks'}
+    else if(label==='all'){path='allBookmarks'}
+
+    const response = await fetch(`/api/bookmarks/${path}`, {
       method: 'get',
       headers: {
         'Authorization': 'Bearer' + ' ' + window.sessionStorage.jwtToken
@@ -38,12 +43,22 @@ export default class Bookmarks extends Component {
     return body;
   }
 
+  handleLabel = (label) => {
+    if(label==='important') {
+      return {bookmarks: this.state.bookmarks.selectedImportant, label: 'Important'}
+    } else if (label==='unfinished') {
+      return {bookmarks: this.state.bookmarks.selectedUnfinished, label: 'Unfinished'}
+    } else if(label==='all'){
+      return {bookmarks: this.state.bookmarks, label: 'All Bookmarks'}
+    }
+  }
+
   render() {
     if(this.state.isLoading) return null;
-    const bookmarks = (this.props.label==='important')?this.state.bookmarks.selectedImportant:this.state.bookmarks.selectedUnfinished;
+    const {bookmarks, label} = this.handleLabel(this.props.label)
     return (
       <div>
-        <h4 style={{marginLeft: 15+'px', marginTop: 5+'px'}}>Marked as {(this.props.label==='important')? 'Important': 'Unfinished'}</h4>
+        <h4 style={{marginLeft: 15+'px', marginTop: 5+'px'}}>Marked as {label}</h4>
         {
           bookmarks.map((bookmark, key)=>(
             <Bookmark bookmark={bookmark} key={key}/>

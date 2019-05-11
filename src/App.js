@@ -7,6 +7,7 @@ import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
 import Home from './components/Home/Home';
 import Welcome from './components/Welcome/Welcome';
+import AllBookmarks from './components/Bookmarks/AllBookmarks';
 
 class App extends Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class App extends Component {
       <div className="App">
         <NavBar
         isSignedIn={this.state.isAuthenticated}
+        history={this.props.history}
         />
         <Switch>
           <Route 
@@ -67,6 +69,12 @@ class App extends Component {
           path="/welcome"
           render={props => (
               <Welcome history={this.props.history} />
+            )}
+          />
+          <Route 
+          path="/bookmarks/all"
+          render={props => (
+              <AllBookmarks history={this.props.history} />
             )}
           />
           </Switch>

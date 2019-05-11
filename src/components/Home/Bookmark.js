@@ -7,7 +7,12 @@ import DetailsModal from "./DetailsModal";
 
 export default function Bookmark(props){
   const bookmark = props.bookmark;
-  const image = bookmark.image?bookmark.image:DefaultImage
+  const image = bookmark.image?bookmark.image:DefaultImage;
+
+  const openLink = () => {
+    window.open(bookmark.url)
+  }
+
   return (
     <div className='bookmark row'>
       <span>
@@ -15,7 +20,7 @@ export default function Bookmark(props){
         {(()=>{if(bookmark.unfinished) return <span><IoIosContrast size={25} style={{color: '#c0d6e4'}}/><br /></span>})()}
         {(()=>{if(bookmark.remind) return <IoIosTimer size={25} style={{color: '#88a6f6'}}/>})()}
       </span>
-      <div className='text-wrapper col-8'>
+      <div className='text-wrapper col-8' onClick={openLink}>
         {bookmark.title}
         <div className='bookmark-tags'>
           {bookmark.tags.map((tag, key)=>(
@@ -28,7 +33,7 @@ export default function Bookmark(props){
         </p>
       </div>
       <div className='col-1'><DetailsModal details={bookmark}/></div>
-      <div className='col-2' style={{
+      <div className='col-2' onClick={openLink} style={{
         backgroundImage: 'url(' + image + ')',
         backgroundSize:'contain',
         backgroundPosition:'center',

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Formik, Field } from 'formik';
+import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
 import TextForm from '../TextForm';
+import FormikEffect from './FormikEffect';
 
 const Checkbox = ({
   field: { name, value, onChange },
@@ -29,7 +30,28 @@ const Checkbox = ({
 
 export default class CreateForm extends Component {
 
-  handleCreateBookmark = async (values) => {
+  constructor(props){
+    super(props);
+    this.state = {
+      title: null,
+      titleForm: false
+    }
+  }
+
+
+  onHandleChangeTitle = (title) => {
+    this.setState({title: title})
+  }
+
+  handleTitleForm = () => {
+    this.setState({titleForm: true})
+  }
+
+  handleCloseButton = () => {
+    this.props.onCloseButton()
+  }
+
+  handleCreateBookmark = async (values, {resetForm}) => {
     console.log(values)
     const {tags} = values;
     const tagsArray = tags.split(' ');
@@ -44,6 +66,9 @@ export default class CreateForm extends Component {
       body: JSON.stringify(values)
     }).then(res=>{
       if(res.ok) {
+        resetForm();
+        this.setState({title:null})
+        this.handleCloseButton();
         return res;
       } else {
         throw Error(`Request rejected with status ${res.status}`);
@@ -51,12 +76,28 @@ export default class CreateForm extends Component {
     }).catch(console.error)
   }
 
+  handleUrlChange = async (url) => {
+    return fetch('/api/bookmarks/preview', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer' + ' ' + window.sessionStorage.jwtToken
+      },
+      body: JSON.stringify({url: url})
+    }).then(async res=>{
+      const result = await res.json();
+      this.onHandleChangeTitle(result.body.title)
+      return result.body
+    })
+  }
+
   render() {
     return (
       <div>
         <Formik 
           initialValues={{
-            url:'', tags:'', note:'', important: false, unfinished: false, remind: false
+            url:'', tags:'', note:'', important: false, title:'',unfinished: false, remind: false
           }}
           onSubmit={this.handleCreateBookmark}
           validationSchema={Yup.object().shape({
@@ -65,7 +106,8 @@ export default class CreateForm extends Component {
             note: Yup.string(),
             important: Yup.bool(),
             unfinished: Yup.bool(),
-            remind: Yup.bool()
+            remind: Yup.bool(),
+            title: Yup.string().required('Title is required'),
           })}
           render={({
             values,
@@ -74,10 +116,31 @@ export default class CreateForm extends Component {
             handleBlur,
             errors,
             touched,
-            isSubmitting
+            isSubmitting,
+            setFieldValue
           }) =>(
-            <form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit}>
+            <FormikEffect onChange={async (current, next) => {
+              if(current.values.url && next.values.url!==current.values.url) {
+                await this.handleUrlChange(current.values.url).then(values=>setFieldValue('title',values.title))}
+                  }} 
+                />
               <div>
+                {(()=>{
+                  if(this.state.titleForm) {return (
+                    <TextForm 
+                  title='Title'
+                  label='Title'
+                  value={values.title}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  name='title'
+                  error={touched.title && errors.title}
+                />
+                  )} else return <div style={{marginBottom: 30 + 'px'}}>{(()=>{
+                    if(this.state.title) return (<span>Title:<br/> <h5 style={{display:'inline'}}>{this.state.title}</h5><span style={{color: 'blue', marginLeft:10+'px',textDecoration: 'underline', cursor:'default'}} onClick={this.handleTitleForm}>Edit</span></span>)
+                    })()}</div>
+                })()}
                 <TextForm 
                   title='URL'
                   label='URL'
@@ -131,7 +194,7 @@ export default class CreateForm extends Component {
                 >
                 Submit
               </button>
-            </form>
+            </Form>
           )}
           />
       </div>
