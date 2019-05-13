@@ -24,7 +24,7 @@ export default function Bookmark(props){
         {bookmark.title}
         <div className='bookmark-tags'>
           {bookmark.tags.map((tag, key)=>(
-            <span className='name'>{tag}</span>
+            <span className='name'>{tag.text}</span>
           ))
           }
         </div>

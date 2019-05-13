@@ -25,15 +25,38 @@ export default class Bookmarks extends Component {
   getBookmarksAPI = async () => {
     const label = this.props.label
     let path = null;
-    if(label==='important'||label==='unfinished') {path='homeBookmarks'}
-    else if(label==='all'){path='allBookmarks'}
-
-    const response = await fetch(`/api/bookmarks/${path}`, {
-      method: 'get',
-      headers: {
-        'Authorization': 'Bearer' + ' ' + window.sessionStorage.jwtToken
+    if(label==='important'||label==='unfinished') { 
+        path='homeBookmarks' 
+      } else if (label==='all') {
+        path='allBookmarks' 
+      } else if (label==='search') {
+        path='search'
       }
-    });
+
+      let response = ''
+
+      if(label==='important'||label==='unfinished'||label==='all'){
+        response = await fetch(`/api/bookmarks/${path}`, {
+          method: 'get',
+          headers: {
+            'Authorization': 'Bearer' + ' ' + window.sessionStorage.jwtToken
+          }
+        })
+      } else if(label==='search') {
+        const search = this.props.location.search.substring(1);
+        const values = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) })
+
+        response = await fetch('/api/bookmarks/search', {
+          method: 'post',
+          headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + ' ' + window.sessionStorage.jwtToken
+          },
+          body: JSON.stringify(values)
+          }
+        )
+      }
 
     const body = await response.json();
 
@@ -48,8 +71,10 @@ export default class Bookmarks extends Component {
       return {bookmarks: this.state.bookmarks.selectedImportant, label: 'Important'}
     } else if (label==='unfinished') {
       return {bookmarks: this.state.bookmarks.selectedUnfinished, label: 'Unfinished'}
-    } else if(label==='all'){
+    } else if(label==='all') {
       return {bookmarks: this.state.bookmarks, label: 'All Bookmarks'}
+    } else if(label==='search') {
+      return {bookmarks: this.state.bookmarks, label: ''}
     }
   }
 

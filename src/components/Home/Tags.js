@@ -40,6 +40,8 @@ export default class Tags extends Component {
       <div className='tag-list col-3'>
         {this.state.tags.map((tag, key) => (
           <Tag
+            location={this.props.location}
+            history={this.props.history}
             tag={tag}
             key={key}
           />

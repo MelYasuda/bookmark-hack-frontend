@@ -6,8 +6,10 @@ export default class Home extends Component {
   render() {
     return (
     <div className='Home'>
-      <div className='row home-content'>
-        <Tags />
+      <div className='row body'>
+        <Tags 
+          history={this.props.history}
+          location={this.props.location}/>
         <BookmarkSide label={'home'}/>
       </div>
     </div>

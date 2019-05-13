@@ -4,6 +4,8 @@ import * as Yup from 'yup';
 import TextForm from '../TextForm';
 import FormikEffect from './FormikEffect';
 import Alert from 'react-s-alert';
+import { WithContext as ReactTags } from 'react-tag-input';
+import './CreateBookmark.css';
 
 const Checkbox = ({
   field: { name, value, onChange },
@@ -28,6 +30,11 @@ const Checkbox = ({
   );
 };
 
+const KeyCodes = {
+  SPACE: 32
+};
+
+const delimiters = [KeyCodes.SPACE];
 
 export default class CreateForm extends Component {
 
@@ -35,10 +42,39 @@ export default class CreateForm extends Component {
     super(props);
     this.state = {
       title: null,
-      titleForm: false
+      titleForm: false,
+      tags:[],
+      suggestions: [],
+      tagError: false
     }
   }
 
+  componentDidMount() {
+    this.getTagSuggestions().then(res => {
+      this.setState((prevState, props)=>{
+        return {
+          suggestions:[...res]
+        }
+      })
+    })
+  }
+
+  getTagSuggestions = async () => {
+    const response = await fetch('/api/tags/suggestionTags', {
+      method: 'get',
+      headers: {
+        'Authorization': 'Bearer' + ' ' + window.sessionStorage.jwtToken
+      }
+    });
+
+    const body = await response.json();
+
+    if (response.status !== 200) {
+      throw Error(body.message) 
+    }
+
+    return body;
+  }
 
   onHandleChangeTitle = (title) => {
     this.setState({title: title})
@@ -53,10 +89,15 @@ export default class CreateForm extends Component {
   }
 
   handleCreateBookmark = async (values, {resetForm}) => {
-    console.log(values)
-    const {tags} = values;
-    const tagsArray = tags.split(' ');
-    values.tags = tagsArray;
+    values.tags = this.state.tags;
+    if(!values.tags.length){
+      this.setState((prev, props)=>{
+        return {
+          tagError: !prev.tagError
+        }
+      })
+      return null
+    }
     fetch('/api/bookmarks', {
       method: 'post',
       headers: {
@@ -76,7 +117,7 @@ export default class CreateForm extends Component {
       });
 
         resetForm();
-        this.setState({title:null})
+        this.setState({title:null, tags:[], tagError: false})
         this.handleCloseButton();
         return res;
       } else {
@@ -86,7 +127,7 @@ export default class CreateForm extends Component {
         });
         // resetForm for now but should be kept
         resetForm();
-        this.setState({title:null})
+        this.setState({title:null, tags:[], tagError: false})
         this.handleCloseButton();
         throw Error(`Request rejected with status ${res.status}`);
       }
@@ -109,17 +150,29 @@ export default class CreateForm extends Component {
     })
   }
 
+  handleAddition = (tag) => {
+    this.setState(state => ({ tags: [...state.tags, tag] }));
+}
+
+  handleDelete = (i) => {
+    const { tags } = this.state;
+    this.setState({
+    tags: tags.filter((tag, index) => index !== i),
+    });
+  }
+
   render() {
+    console.log(this.state.suggestions)
+    const {tags, suggestions} = this.state;
     return (
       <div>
         <Formik 
           initialValues={{
-            url:'', tags:'', note:'', important: false, title:'',unfinished: false, remind: false
+            url:'', note:'', important: false, title:'',unfinished: false, remind: false
           }}
           onSubmit={this.handleCreateBookmark}
           validationSchema={Yup.object().shape({
             url: Yup.string().required('URL is required'),
-            tags: Yup.string().required('At least one tag is required'),
             note: Yup.string(),
             important: Yup.bool(),
             unfinished: Yup.bool(),
@@ -167,15 +220,15 @@ export default class CreateForm extends Component {
                   name='url'
                   error={touched.url && errors.url}
                 />
-                <TextForm 
-                  title='Tags'
-                  label='Tags'
-                  value={values.tags}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  name='tags'
-                  error={touched.tags && errors.tags}
-                />
+                <div>
+                  <ReactTags 
+                    tags={tags}
+                    suggestions={suggestions}
+                    handleAddition={this.handleAddition}
+                    handleDelete={this.handleDelete}
+                    delimiters={delimiters} />
+                  {(()=>{if(this.state.tagError)return (<p>At least one tag is required</p>)})()}
+                </div>
                 <TextForm 
                   title='Note'
                   label='Note'

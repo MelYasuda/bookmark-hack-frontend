@@ -35,7 +35,7 @@ export default class DetailsModal extends Component {
             {details.note}
             <div className='bookmark-tags'>
             Tags: {details.tags.map((tag, key)=>(
-              <span className='name'>{tag}</span>
+              <span className='name'>{tag.text}</span>
             ))
             }
           </div>

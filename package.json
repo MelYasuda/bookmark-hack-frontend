@@ -9,11 +9,14 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-bootstrap4-modal": "^1.7.0",
+    "react-dnd": "^7.4.5",
+    "react-dnd-html5-backend": "^7.4.4",
     "react-dom": "^16.8.6",
     "react-icons": "^3.6.1",
     "react-router-dom": "^4.3.1",
     "react-s-alert": "^1.4.1",
     "react-scripts": "2.1.8",
+    "react-tag-input": "^6.4.0",
     "yup": "^0.27.0"
   },
   "scripts": {

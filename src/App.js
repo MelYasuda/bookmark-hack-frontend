@@ -8,6 +8,7 @@ import Signup from './components/Auth/Signup';
 import Home from './components/Home/Home';
 import Welcome from './components/Welcome/Welcome';
 import AllBookmarks from './components/Bookmarks/AllBookmarks';
+import Results from './components/SearchResults/Results';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-css-effects/stackslide.css';
 import 'react-s-alert/dist/s-alert-default.css';
@@ -65,7 +66,10 @@ class App extends Component {
           <Route 
           path="/home"
           render={props => (
-              <Home history={this.props.history} />
+              <Home 
+                history={this.props.history}
+                location={this.props.location}
+                />
             )}
           />
           <Route 
@@ -78,6 +82,14 @@ class App extends Component {
           path="/bookmarks/all"
           render={props => (
               <AllBookmarks history={this.props.history} />
+            )}
+          />
+          <Route 
+          path="/bookmarks/search"
+          render={props => (
+              <Results 
+              history={this.props.history}
+              location={this.props.location} />
             )}
           />
           </Switch>
