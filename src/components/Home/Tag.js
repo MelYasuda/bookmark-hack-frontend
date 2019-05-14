@@ -5,7 +5,7 @@ export default class Tag extends Component {
   onClickTag = (text) => {
     console.log(this.props.location)
     let q = ''
-    if(!this.props.location) {
+    if(!this.props.location.search) {
       q = text;
     } else {
       const search = this.props.location.search

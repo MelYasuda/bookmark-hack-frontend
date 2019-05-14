@@ -12,6 +12,7 @@ export default class Bookmarks extends Component {
   }
 
   componentDidMount() {
+    console.log('compo')
     this.getBookmarksAPI().then((res)=>{
       this.setState((prevState, props)=>{
         return {
@@ -79,6 +80,7 @@ export default class Bookmarks extends Component {
   }
 
   render() {
+    console.log('bookmarks')
     if(this.state.isLoading) return null;
     const {bookmarks, label} = this.handleLabel(this.props.label)
     return (
