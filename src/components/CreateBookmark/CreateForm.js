@@ -162,7 +162,6 @@ export default class CreateForm extends Component {
   }
 
   render() {
-    console.log(this.state.suggestions)
     const {tags, suggestions} = this.state;
     return (
       <div>

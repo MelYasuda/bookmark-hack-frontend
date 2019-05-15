@@ -6,8 +6,8 @@ export default function BookmarkSide(props) {
     if(props.label==='home') {
       return (
         <div className='col-8'>
-          <BookmarkBox label={"important"} />
-          <BookmarkBox label={"unfinished"}/>
+          <BookmarkBox label={"Important"} />
+          <BookmarkBox label={"Unfinished"}/>
         </div>
         )
       } else if(props.label==='all' || props.label==='search') {

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { fetchSearchBookmarks } from '../../store/actions/search';
 
-export default class Tag extends Component {
+class Tag extends Component {
 
   onClickTag = (text) => {
     console.log(this.props.location)
@@ -15,6 +17,7 @@ export default class Tag extends Component {
       pathname:'/bookmarks/search',
       search: `?tag=${q}`
     })
+    this.props.fetchSearchBookmarks({tags: q})
   }
 
   render() {
@@ -22,4 +25,12 @@ export default class Tag extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchSearchBookmarks: function(tags) {
+      dispatch(fetchSearchBookmarks(tags));
+    }
+  };
+}
 
+export default connect(null, mapDispatchToProps)(Tag);
