@@ -1,5 +1,4 @@
 export function fetchSearchBookmarks(tags) {
-  console.log(tags)
   return function(dispatch) {
     dispatch({
       type: 'FETCH_SEARCH_BOOKMARKS_REQUEST'
@@ -15,7 +14,6 @@ export function fetchSearchBookmarks(tags) {
       }
     ).then(response => response.json().then(body => ({ response, body })))
       .then(({ response, body }) => {
-        console.log(body)
         if (!response.ok) {
           dispatch({
             type: 'FETCH_SEARCH_BOOKMARKS_FAILURE',
@@ -24,7 +22,8 @@ export function fetchSearchBookmarks(tags) {
         } else {
           dispatch({
             type: 'FETCH_SEARCH_BOOKMARKS_SUCCESS',
-            search: body
+            search: body,
+            searchTags: tags.tags
           });
         }
       });

@@ -6,6 +6,7 @@ import { fetchAllBookmarks } from '../../store/actions/bookmarks';
 import { fetchImportantBookmarks } from '../../store/actions/important';
 import { fetchUnfinishedBookmarks } from '../../store/actions/unfinished';
 import { fetchSearchBookmarks } from '../../store/actions/search';
+import Tags from '../Home/Tags';
 
 class Bookmarks extends Component {
 
@@ -20,8 +21,8 @@ class Bookmarks extends Component {
     } else if (label==='search'){
       const search = this.props.location.search.substring(1);
       const values = JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) })
-      console.log(values)
-      this.props.fetchSearchBookmarks({tags:values.tag});
+      const tags = values.tag.split("+")
+      this.props.fetchSearchBookmarks({tags:tags});
     }
   }
 
@@ -107,11 +108,11 @@ class Bookmarks extends Component {
         </div>
       )
     } else if (label==='search') {
-    console.log(this.props.search)
-
       return (
         <div>
-          <h4 style={{marginLeft: 15+'px', marginTop: 5+'px'}}>Marked as {label}</h4>
+          <Tags label={label} 
+          location={this.props.location}
+          history={this.props.history} />
           {(()=>{
             if(!this.props.search.length){
               return <h4>No bookmarks with the tags found</h4>
@@ -156,7 +157,7 @@ const mapStateToProps = state => ({
   isLoading: state.bookmarks.isLoading,
   important: state.important.important,
   unfinished: state.unfinished.unfinished,
-  search: state.search.search
+  search: state.search.search,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Bookmarks);

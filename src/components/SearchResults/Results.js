@@ -10,7 +10,9 @@ export default class Results extends Component {
           history={this.props.history}
           location={this.props.location}
           />
-        <BookmarkSide label={'search'} location={this.props.location}/>
+        <BookmarkSide label={'search'} 
+        location={this.props.location}
+        history={this.props.history}/>
       </div>
     )
   }

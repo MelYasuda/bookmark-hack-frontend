@@ -52,6 +52,7 @@ class App extends Component {
           <NavBar
           isSignedIn={this.state.isAuthenticated}
           history={this.props.history}
+          location={this.props.location}
           />
           <Switch>
             <Route 

@@ -31,10 +31,12 @@ const Checkbox = ({
 };
 
 const KeyCodes = {
-  SPACE: 32
+  SPACE: 32,
+  COMMA: 188,
+  ENTER: 13,
 };
 
-const delimiters = [KeyCodes.SPACE];
+const delimiters = [KeyCodes.SPACE, KeyCodes.COMMA, KeyCodes.ENTER];
 
 export default class CreateForm extends Component {
 

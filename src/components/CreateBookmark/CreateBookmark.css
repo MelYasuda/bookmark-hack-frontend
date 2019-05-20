@@ -43,6 +43,10 @@ div.ReactTags__suggestions ul {
   box-shadow: .05em .01em .5em rgba(0,0,0,.2);
   background: white;
   width: 200px;
+  z-index: 1;
+  position:relative;
+  margin: 0;
+  padding: 0;
 }
 div.ReactTags__suggestions li {
   border-bottom: 1px solid #ddd;

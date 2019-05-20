@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Tag from './Tag';
 import './Home.css';
+import { connect } from "react-redux";
 
-export default class Tags extends Component {
+class Tags extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,6 +37,21 @@ export default class Tags extends Component {
 
   render(){
     if(this.state.isLoading) return null;
+    if(this.props.label==='search') {
+      return(
+        <div className='col-7'>
+          {this.props.searchTags.map((tag, key) => (
+            <Tag
+              label={this.props.label}
+              location={this.props.location}
+              history={this.props.history}
+              tag={tag}
+              key={key}
+            />
+          ))}
+        </div>
+      )
+    }
     return(
       <div className='tag-list col-3'>
         {this.state.tags.map((tag, key) => (
@@ -49,3 +65,9 @@ export default class Tags extends Component {
     )
   }
 }
+
+const mapStateToProps = state => ({
+  searchTags: state.search.searchTags
+})
+
+export default connect(mapStateToProps)(Tags);

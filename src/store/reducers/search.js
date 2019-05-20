@@ -1,7 +1,8 @@
 const INITIAL_STATE = {
   search: [],
   isLoading: false,
-  error: undefined
+  error: undefined,
+  searchTags: []
 };
 
 function searchReducer(state = INITIAL_STATE, action) {
@@ -13,7 +14,8 @@ function searchReducer(state = INITIAL_STATE, action) {
     case 'FETCH_SEARCH_BOOKMARKS_SUCCESS':
       return Object.assign({}, state, {
         isLoading: false,
-        search: action.search
+        search: action.search,
+        searchTags: action.searchTags
       });
     case 'FETCH_SEARCH_BOOKMARKS_FAILURE':
       return Object.assign({}, state, {

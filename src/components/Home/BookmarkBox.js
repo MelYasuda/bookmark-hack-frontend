@@ -5,7 +5,9 @@ import Bookmarks from './Bookmarks';
 export default function BookmarkBox(props){
     return (
       <div className='bookmark-box'>
-        <Bookmarks label={props.label} location={props.location}/>
+        <Bookmarks label={props.label} 
+        history={props.history}
+        location={props.location}/>
       </div>
     )
 }

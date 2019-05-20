@@ -2,6 +2,7 @@ import React from 'react';
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types'; 
 import ModalForm from '../CreateBookmark/ModalForm';
+import SearchBar from './SearchBar';
 
 function SignedIn(props){
 
@@ -28,6 +29,11 @@ function SignedIn(props){
 
   return(
   <ul className="navbar-nav ml-auto">
+  <li style={{marginTop: 8+'px', marginRight: 325 + 'px'}} className="nav-item active">
+      <SearchBar 
+      location={props.location}
+      history={props.history}/>
+    </li>
     <li style={{marginTop: 8+'px'}} className="nav-item active">
       <ModalForm history={props.history}/>
     </li>
@@ -71,6 +77,7 @@ function CondNavDisplay(props){
   const isSignedIn = props.isSignedIn;
   if (isSignedIn) {
     return <SignedIn
+    location={props.location}
     history={props.history} 
     handleSignOut={props.handleSignOut} />;
   }
